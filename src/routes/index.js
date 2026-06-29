@@ -5,7 +5,7 @@ const zodiacRoutes = require("./zodiac.routes");
 const uploadRoutes = require("./upload.routes");
 
 // mount delle feature
-router.use("/zodiac", zodiacRoutes);
+router.use("/", zodiacRoutes);
 router.use("/upload", uploadRoutes);
 
 module.exports = router;

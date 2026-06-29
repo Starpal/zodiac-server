@@ -6,23 +6,10 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
-const hbs = require("express-handlebars");
 
 const indexRouter = require("./routes");
 
 const app = express();
-
-// View Engine
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "hbs");
-app.engine(
-    "hbs",
-    hbs.engine({
-        extname: "hbs",
-        defaultView: "main",
-        layoutsDir: path.join(__dirname, "views"),
-    })
-);
 
 // Middleware
 app.use(logger("dev"));

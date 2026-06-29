@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const ZodiacSymbol = require("../models/zodiacSymbol.model");
+const ZodiacSymbol = require("../models/zodiacSymbol");
 
 // Health check
 router.get("/", async (req, res) => {
@@ -33,7 +33,7 @@ router.get("/degree", async (req, res) => {
 });
 
 // POST by sign + degree
-router.post("/db-degree", async (req, res) => {
+router.post("/DBdegree", async (req, res) => {
     try {
         const { sign, degree } = req.body;
 
