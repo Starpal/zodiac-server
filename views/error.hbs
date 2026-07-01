@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Errore {{status}} · Zodiac Server</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at 50% 20%, #1e1b3a 0%, #0b0a17 70%);
+            color: #f4f1ff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+        .card {
+            text-align: center;
+            padding: 3rem 2.5rem;
+            max-width: 420px;
+        }
+        .glyph {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+        h1 {
+            font-size: 1.75rem;
+            margin: 0 0 0.5rem;
+        }
+        p.status {
+            color: #b8aef0;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            margin: 0 0 1.5rem;
+        }
+        p.message {
+            color: #cfc9ea;
+            line-height: 1.5;
+        }
+        pre {
+            text-align: left;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            padding: 1rem;
+            font-size: 0.8rem;
+            overflow-x: auto;
+            color: #e0dcf7;
+        }
+        a {
+            color: #a58cff;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="glyph">🪐</div>
+        <p class="status">Errore {{status}}</p>
+        <h1>{{message}}</h1>
+        <p class="message">Something wen wrong. <a href="/">home</a>.</p>
+        {{#if error.stack}}
+        <pre>{{error.stack}}</pre>
+        {{/if}}
+    </div>
+</body>
+</html>

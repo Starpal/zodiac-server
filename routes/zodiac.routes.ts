@@ -1,10 +1,10 @@
-const express = require("express");
+import express, { Request, Response } from "express";
+import ZodiacSymbol from "../models/zodiacSymbol";
+
 const router = express.Router();
 
-const ZodiacSymbol = require("../models/zodiacSymbol");
-
 // Health check
-router.get("/", async (req, res) => {
+router.get("/", async (_req: Request, res: Response) => {
     res.json({
         status: "ok",
         module: "zodiac",
@@ -13,18 +13,14 @@ router.get("/", async (req, res) => {
 });
 
 // GET random degree
-router.get("/degree", async (req, res) => {
+router.get("/degree", async (_req: Request, res: Response) => {
     try {
-        const response = await ZodiacSymbol.aggregate([
-            { $sample: { size: 1 } },
-        ]);
+        const response = await ZodiacSymbol.aggregate([{ $sample: { size: 1 } }]);
 
         return res.json(response[0] || null);
     } catch (error) {
-        console.error(
-            "Error while getting random degree:",
-            error.message
-        );
+        const err = error as Error;
+        console.error("Error while getting random degree:", err.message);
 
         return res.status(500).json({
             error: "Failed to fetch random degree",
@@ -33,9 +29,9 @@ router.get("/degree", async (req, res) => {
 });
 
 // POST by sign + degree
-router.post("/DBdegree", async (req, res) => {
+router.post("/DBdegree", async (req: Request, res: Response) => {
     try {
-        const { sign, degree } = req.body;
+        const { sign, degree } = req.body as { sign?: string; degree?: number };
 
         if (!sign || degree === undefined) {
             return res.status(400).json({
@@ -56,10 +52,8 @@ router.post("/DBdegree", async (req, res) => {
 
         return res.json(response);
     } catch (error) {
-        console.error(
-            "Error while fetching DB degree:",
-            error.message
-        );
+        const err = error as Error;
+        console.error("Error while fetching DB degree:", err.message);
 
         return res.status(500).json({
             error: "Database query failed",
@@ -67,4 +61,4 @@ router.post("/DBdegree", async (req, res) => {
     }
 });
 
-module.exports = router;
+export default router;
